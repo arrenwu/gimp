@@ -718,7 +718,14 @@ if have_qoi
   MIMEtypes += 'image/qoi'
 endif
 
-have_ilbm = cc.has_header('libilbm/ilbm.h')
+libiff = dependency('libiff', required: false)
+libilbm = dependency('libilbm', required: false)
+if libiff.found() and libilbm.found()
+  have_ilbm = true
+else
+  have_ilbm = cc.has_header('libilbm/ilbm.h')
+endif
+
 if have_ilbm
   MIMEtypes += 'image/x-ilbm'
 endif
